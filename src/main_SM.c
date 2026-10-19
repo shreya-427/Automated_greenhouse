@@ -6,7 +6,7 @@
 
 void setup(){
     //Q-baud rate?
-    Serial.begin()
+    Serial.begin();
 //setup inputs & outputs
 
 
@@ -17,6 +17,7 @@ void setup(){
     xTaskCreate(TaskSoilStatus, "SoilStatus", NULL, 1, NULL);
     xTaskCreate(TaskWaterPlants, "WaterPlants", NULL, 2, NULL);
     
-
+//create semaphore    
+    xSemaphoreCreateBinary();
 }
 void loop(){}
