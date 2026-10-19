@@ -1,8 +1,12 @@
 //import task files (4 files)
+#include "FreeRTOS.h"
 
 //events 
 
 //states
+
+//semaphore handles
+
 
 void setup(){
     //Q-baud rate?
