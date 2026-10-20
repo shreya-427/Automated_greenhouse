@@ -9,6 +9,8 @@ const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 //semaphore handles
+SemaphoreHandle_t xSemaphore;
+//timer handles
 
 void setup(){
     // set up the LCD's number of columns and rows: Q-how many columns and rows does the LCD have?
@@ -25,12 +27,7 @@ void setup(){
     xTaskCreate(TaskWaterPlants, "WaterPlants", NULL, 2, NULL);
     
 //create semaphore    
-    xSemaphoreCreateBinary();
+    xSemaphore = xSemaphoreCreateBinary();
 
-//create timers
-    //timer for max watering time
-    xCreateTimer();
-    //timer for saturation set time
-    xCreateTimer();
 }
 void loop(){}
