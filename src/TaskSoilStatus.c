@@ -10,15 +10,20 @@ void TaskSoilStatus( void *pvParameters){
         int data = digitalRead();
         
         if(data <= lowM_threshold){
-            //if moist level is low then taskWaterPlant will be awake
+            //if moist level is low then taskWaterPlant will be awake only when reservoir is full
             taskEnter_CRITICAL();
-            lowMoisture = true;
+            if(currentEvent == reservoirFull){
+                currentEvent = lowMoisture
+                xSemaphoreGive(TaskWaterPlant);
+            }else{
+                currentEvent = reservoirEmpty;
+            }
             taskEXIT_CRITICAL();
-            xSemaphoreGive(TaskWaterPlant);
+            
         }else{
             //if moist level is good/high, taskWaterPlant will be awake but won't water
             taskEnter_CRITICAL();
-            lowMoisture = false;
+            currentEvent = goodMoisture;
             taskEXIT_CRITICAL();
             xSemaphoreGive(TaskWaterPlant);
         }

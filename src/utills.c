@@ -1,7 +1,7 @@
 typedef enum {
     Watering,
     Idle,
-    Paused
+    WaterEmpty
 } State;
 
 typedef enum {
@@ -24,5 +24,5 @@ const int soilMoisturePin = ;//Analog pin connected to moisture sensor (input)
 const int lowM_threshold = 0;
 
 //FLAGS
-volatile bool resevoirFull = false; // Flag to hold the resevoir status
-volatile bool lowMoisture = false; //flag to hold moisture status
+//volatile bool resevoirFull = false; // Flag to hold the resevoir status
+//volatile bool lowMoisture = false; //flag to hold moisture status
