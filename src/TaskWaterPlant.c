@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <Arduino_freeRTOS.h>
+#include <timers.h>
+
 
 void TaskWaterPlant(void *pvParameters){
 
@@ -8,8 +10,18 @@ void TaskWaterPlant(void *pvParameters){
         xSemaphoreTake()
     }
 
-    //if event is low moisture
-        //water pump on
-    //if event is good moisture or high moisture
-        //water pump off
+    //water when moisture is low and reservoir is full
+    if(lowMoisture == false && reservoirFull == true){
+        //change state to watering
+        taskEnter_CRITICAL();
+        currentState = WATERING;
+        taskEXIT_CRITICAL();
+        digitalWrite(waterPumpPin, HIGH); //waterpump on
+    }else{ //moisture if good or high
+        taskEnter_CRITICAL();
+        currentState = IDLE
+        taskEXIT_CRITICAL();
+        digitalWrite(waterPumpPin, LOW); //waterpump off
+    }
+    
 }
